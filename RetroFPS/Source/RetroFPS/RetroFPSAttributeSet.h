@@ -3,6 +3,7 @@
 #include <CoreMinimal.h>
 #include <AttributeSet.h>
 #include <AbilitySystemComponent.h>
+#include "GameplayEffectExtension.h"
 #include "RetroFPSAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -27,4 +28,16 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData Armor;
 	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, Armor);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	FGameplayAttributeData PistolAmmo;
+	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, PistolAmmo);
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	FGameplayAttributeData RocketAmmo;
+	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, RocketAmmo);
+
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual bool PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data) override;
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 };
